@@ -50,7 +50,9 @@ public class WeatherServiceImpl implements WeatherService {
                             .flatMap(weatherResponse -> Mono.just(new WeatherResponse(openWeatherCityResponse.city(),
                                     weatherResponse.current().weather().getFirst().description(),
                                     weatherResponse.current().temp())))
+                            .onErrorResume(e -> Mono.empty())
                 )
+
                         ;
     }
 
